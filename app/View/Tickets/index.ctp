@@ -5,6 +5,11 @@
 <?php echo $this->Html->link(
     'Create Ticket',
     array('controller' => 'tickets', 'action' => 'create')
+);
+echo " ";
+echo $this->Html->link(
+    'View/Add Users',
+    array('controller' => 'users', 'action' => 'index')
 ); ?>
 
 <table>
@@ -15,6 +20,7 @@
         <th>Assignee</th>
         <th>Opened</th>
         <th>Status</th>
+        <th>Update</th>
     </tr>
     <?php foreach($tickets as $ticket): ?>
     <tr>
@@ -25,6 +31,7 @@
         <td><?php echo $ticket['Assignee']['full_name']; ?></td>
         <td><?php echo $ticket['Ticket']['created']; ?></td>
         <td><?php echo $ticket['Status']['name']; ?></td>
+        <td><?php echo $this->Html->link('Update Ticket', array('action' => 'update', $ticket['Ticket']['id'])); ?></td>
     </tr>
     <?php endforeach; unset($ticket); ?>
 </table>
