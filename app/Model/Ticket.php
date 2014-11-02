@@ -5,8 +5,15 @@
  * User: Blake
  * Date: 11/1/2014
  * Time: 11:39 AM
+ *
+ * This file contains the Model of the Ticket object to be used when pulling information from the database and when
+ * submitting forms with user information
  */
+
 class Ticket extends AppModel {
+    // this belongs to links a ticket to a creator, assignee and a status
+    // it allows us to display names instead of id's for the status and users
+    // associated with the ticket.
     public $belongsTo = array(
         'Creator' => array(
             'className' => 'User',
@@ -22,6 +29,7 @@ class Ticket extends AppModel {
         )
     );
 
+    // more validation code to cut down on inserting invalid data
     public $validate = array(
         'description' => array(
             'description_rule-1' => array(
@@ -72,4 +80,4 @@ class Ticket extends AppModel {
             )
         )
     );
-}
+} // end class ticket

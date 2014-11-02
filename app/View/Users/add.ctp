@@ -1,7 +1,10 @@
 <!-- File: /app/View/Users/add.ctp -->
-
+<!--
+This is a form that allows us to add a new user
+-->
 <h1>Add a User</h1>
 
+<!-- a link back to all of our users -->
 <?php echo $this->Html->link(
     'Cancel',
     array('controller' => 'users', 'action' => 'index')
