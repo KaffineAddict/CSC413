@@ -41,4 +41,32 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('Unable to add the user.'));
         }
     }
+
+    public function login() {
+        $this->set('link', "https://github.com/login/oauth/authorize?scope=user"
+            . '&client_id=' . $this->Auth->settings['clientID']
+            . '&redirect_uri=' . $this->Auth->settings['redirect_url']);
+
+        if ($this->request->is('post') || $this->request->is('get')) {
+
+            // facebook requests a csrf protection token
+            if (!($csrf_token = $this->Session->read("state"))) {
+                $csrf_token = md5(uniqid(rand(), TRUE));
+                $this->Session->write("state",$csrf_token); //CSRF protection
+            }
+            $this->set("csrfToken",$csrf_token);
+
+            // login
+            if ($this->Auth->login()) {
+                return $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash(__('Your login failed'), 'default', array(), 'auth');
+            }
+        }
+    }
+
+    function logout(){
+        $this->Session->setFlash('Logged out.');
+        $this->redirect($this->Auth->logout());
+    }
 } // end class UserController

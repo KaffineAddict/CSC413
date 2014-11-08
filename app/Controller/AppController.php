@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('GitHubAuthenticate', 'Controller/Component/Auth');
 
 /**
  * Application Controller
@@ -31,4 +32,19 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            /** Any other configuration like redirects can go here */
+            'authenticate' => array(
+                'GitHub'
+            )
+        )
+    );
+
+    public function isAuthorized($user) {
+        // Here is where we should verify the role and give access based on role
+        return true;
+    }
+
 }
