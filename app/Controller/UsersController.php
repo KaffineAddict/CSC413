@@ -18,7 +18,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('callback');
+        $this->Auth->allow('login');
     }
 
     // display control for the index/main view.
@@ -48,20 +48,12 @@ class UsersController extends AppController {
     }
 
     public function login() {
-        $this->set('link', "https://github.com/login/oauth/authorize?scope=user&client_id=d2e54a61a2963cdd4708");
-    }
-
-    public function callback() {
-
-        CakeLog::config('default', array(
-            'engine' => 'File'
-        ));
-        CakeLog::write('debug', print_r($this->Auth->user('id')));
-
-        $this->set('stuff', $this->Auth->user());
-        if ($this->Auth->login()) {
-        } else {
-            $this->Session->setFlash(__('Your login failed'), 'default', array(), 'auth');
+        if ($this->request->is('post') || $this->request->is('get')) {
+            if ($this->Auth->login()) {
+                return $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash(__('Your login failed'), 'default', array(), 'auth');
+            }
         }
     }
 

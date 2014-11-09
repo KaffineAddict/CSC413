@@ -9,6 +9,8 @@
  * from the database.
  */
 
+App::uses('AppModel', 'Model');
+
 class User extends AppModel {
     // this constructor builds a column out of the first and last name
     // which saves joining these names together several times
