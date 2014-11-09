@@ -16,13 +16,19 @@ echo " ";
 echo $this->Html->link(
     'Show All Tickets',
     array('controller' => 'tickets', 'action' => 'index')
-); ?>
+);
+echo $this->Html->link(
+    'Logout',
+    array('controller' => 'users', 'action' => 'logout')
+);
+?>
 
 <!-- print out the table headers -->
 <table>
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Username</th>
         <th>Email</th>
         <th>Type</th>
     </tr>
@@ -31,6 +37,7 @@ echo $this->Html->link(
     <tr>
         <td><?php echo $user['User']['id']; ?></td>
         <td><?php echo $user['User']['full_name']; ?></td>
+        <td><?php echo $user['User']['username']; ?></td>
         <td><?php echo $user['User']['email']; ?></td>
         <td><?php echo $user['Type']['name']; ?></td>
     </tr>

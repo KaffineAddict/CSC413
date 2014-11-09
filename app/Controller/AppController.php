@@ -38,6 +38,10 @@ class AppController extends Controller {
             /** Any other configuration like redirects can go here */
             'authenticate' => array(
                 'GitHub'
+            ),
+            'loginRedirect' => array(
+                'controller' => 'tickets',
+                'action' => 'index'
             )
         )
     );
