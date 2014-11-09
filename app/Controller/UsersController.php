@@ -61,4 +61,32 @@ class UsersController extends AppController {
         $this->Session->setFlash('Logged out.');
         $this->redirect($this->Auth->logout());
     }
+
+    public function update($id = null)
+    {
+        if (!$id) {
+            throw new NotFoundException(__('Invalid User ID'));
+        }
+
+        $user = $this->User->findByid($id);
+        if (!$user) {
+            throw new NotFoundException(__('Invalid User ID'));
+        }
+
+        $this->set('userTypes', $this->User->Type->find('list',
+            array('order' => array('Type.id' => 'asc'))));
+
+        if ($this->request->is('post', 'put')) {
+            $this->User->id = $id;
+            if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('User info has been updated.'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            $this->Session->setFlash(__('Unable to update the user.'));
+        }
+
+        if (!$this->request->data) {
+            $this->request->data = $user;
+        }
+    }
 } // end class UserController

@@ -45,18 +45,6 @@ class User extends AppModel {
                 'rule' => 'notEmpty',
                 'message' => 'The token cannot be empty'
             )
-        ),
-        'first_name' => array(
-            'token_rule-1' => array(
-                'rule' => 'notEmpty',
-                'message' => 'The first name cannot be empty'
-            )
-        ),
-        'email' => array(
-            'token_rule-1' => array(
-                'rule' => array('email', true),
-                'message' => 'Must use a valid email'
-            )
         )
     );
 } // end class user

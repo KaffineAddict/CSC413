@@ -1,4 +1,4 @@
-<!-- File: /app/View/Posts/update.ctp -->
+<!-- File: /app/View/Tickets/update.ctp -->
 <!--
 This file is a view that prints a form for updating a particular tickets information.
 This will allow us to reassign or put a better description on a ticket.

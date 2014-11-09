@@ -16,7 +16,13 @@ echo " ";
 echo $this->Html->link(
     'View/Add Users',
     array('controller' => 'users', 'action' => 'index')
-); ?>
+);
+echo " ";
+echo $this->Html->link(
+    'Logout',
+    array('controller' => 'users', 'action' => 'logout')
+);
+?>
 
 <!-- print out the table headers -->
 <table>
