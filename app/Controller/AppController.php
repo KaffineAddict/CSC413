@@ -51,4 +51,7 @@ class AppController extends Controller {
         return true;
     }
 
+    public function beforeFilter() {
+        $this->set('userID', $this->Auth->user('User.id'));
+    }
 }
