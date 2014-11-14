@@ -22,6 +22,7 @@ echo $this->Html->link(
     'Logout',
     array('controller' => 'users', 'action' => 'logout')
 );
+echo "<br>" . print_r($dump);
 ?>
 
 <!-- print out the table headers -->
@@ -42,7 +43,12 @@ echo $this->Html->link(
         <td><?php echo $user['User']['username']; ?></td>
         <td><?php echo $user['User']['email']; ?></td>
         <td><?php echo $user['Type']['name']; ?></td>
-        <td><?php echo $this->Html->link('Update User', array('action' => 'update', $user['User']['id'])); ?></td>
+        <td>
+        <? if(($user['User']['id'] == $userID) || isset($can_update)) {
+            echo $this->Html->link('Update User', array('action' => 'update', $user['User']['id']));
+        }
+        ?>
+        </td>
     </tr>
         <!-- end users loop -->
     <?php endforeach; unset($user); ?>

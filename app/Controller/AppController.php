@@ -35,20 +35,23 @@ class AppController extends Controller {
     public $components = array(
         'Session',
         'Auth' => array(
-            /** Any other configuration like redirects can go here */
-            'authenticate' => array(
-                'GitHub'
-            ),
+            'authenticate' => array('GitHub'),
             'loginRedirect' => array(
                 'controller' => 'tickets',
                 'action' => 'index'
-            )
+            ),
+            'authorize' => array('Controller')
         )
     );
 
-    public function isAuthorized($user) {
-        // Here is where we should verify the role and give access based on role
-        return true;
+    public function beforeFilter() {
+        $this->set('userID', $this->Auth->user('User.id'));
     }
 
+    public function isAuthorized($user) {
+        if($this->action == 'index' || $this->action == 'login') {
+            return true;
+        }
+        return false;
+    }
 }

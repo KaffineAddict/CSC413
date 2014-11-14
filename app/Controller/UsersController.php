@@ -21,6 +21,28 @@ class UsersController extends AppController {
         $this->Auth->allow('login');
     }
 
+    public function isAuthorized($user) {
+        $this->set('dump', $this->Auth->user());
+        if ($this->action == 'add') {
+            if($this->Auth->user('Type.edit_permissions') == 1) {
+                $this->set('can_update', 1);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if ($this->action == 'update') {
+            if(($this->request->params['pass'][0] == $this->Auth->user('User.id'))) {
+                return true;
+            } else if ($this->Auth->user('Type.edit_permissions') == 1) {
+                $this->set('can_update', 1);
+                return true;
+            }
+            return false;
+        }
+        return parent::isAuthorized($user);
+    }
+
     // display control for the index/main view.
     public function index()
     {
@@ -48,8 +70,10 @@ class UsersController extends AppController {
     }
 
     public function login() {
+       // print_r($this); die;
         if ($this->request->is('post') || $this->request->is('get')) {
             if ($this->Auth->login()) {
+                $this->Session->setFlash('Logged In');
                 return $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash(__('Your login failed'), 'default', array(), 'auth');

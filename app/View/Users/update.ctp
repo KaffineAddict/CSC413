@@ -18,6 +18,8 @@ echo $this->Form->create('User');
 echo $this->Form->input('first_name');
 echo $this->Form->input('last_name');
 echo $this->Form->input('email');
-echo $this->Form->input('user_type');
+if (isset($can_update)) {
+    echo $this->Form->input('user_type');
+}
 echo $this->Form->end('Update User');
 ?>
