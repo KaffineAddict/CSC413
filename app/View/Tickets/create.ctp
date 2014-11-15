@@ -2,7 +2,9 @@
 <!--
 This is a form that allows us to create a brand new ticket
 -->
-<h1>Create a Ticket</h1>
+<?
+$this->assign('title', 'Create a Ticket');
+?>
 
 <!-- a link back to all of the current tickets -->
 <?php echo $this->Html->link(

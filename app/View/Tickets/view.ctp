@@ -4,9 +4,9 @@ This file allows us to view a single tickets information. At this time it only d
 the tickets id and creators as well as the time it was created. This will be updated to
 show the comments on the ticket as well.
 -->
-
-<h1>Single Ticket View</h1>
-
+<?
+$this->assign('title', 'Single Ticket View');
+?>
 <!-- a link to show all of the tickets -->
 <?php echo $this->Html->link(
     'Show All Tickets',

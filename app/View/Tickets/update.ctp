@@ -3,8 +3,9 @@
 This file is a view that prints a form for updating a particular tickets information.
 This will allow us to reassign or put a better description on a ticket.
 -->
-
-<h1>Update Ticket</h1>
+<?
+$this->assign('title', 'Update Ticket');
+?>
 
 <!-- a link back to the main ticket view -->
 <?php echo $this->Html->link(

@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/tickets">Ticketer</a>
+            <a class="navbar-brand" href="/tickets">Ticketer <span class="glyphicon glyphicon-tag" aria-hidden="true"></span></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -51,7 +51,7 @@
 		<div id="content">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><?php echo $this->fetch('title'); ?></h3>
+                    <h2 class="panel-title"><?php echo $this->fetch('title'); ?></h2>
                 </div>
                 <div class="panel-body">
                     <?php echo $this->fetch('content'); ?>
