@@ -29,6 +29,13 @@ class Ticket extends AppModel {
         )
     );
 
+    public $hasMany = array(
+      'Comment' => array(
+          'className' => 'Comment',
+          'foreignKey' => 'ticket_id'
+      )
+    );
+
     // more validation code to cut down on inserting invalid data
     public $validate = array(
         'description' => array(

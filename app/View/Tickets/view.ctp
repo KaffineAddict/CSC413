@@ -36,3 +36,20 @@ show the comments on the ticket as well.
         <td><?php echo $this->Html->link('Update Ticket', array('action' => 'update', $ticket['Ticket']['id'])); ?></td>
     </tr>
 </table>
+    <br>
+    <hr>
+    <br>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Comment</th>
+            <th>Time</th>
+        </tr>
+    <? foreach($comments as $comment): ?>
+        <tr>
+            <td><?=$comment['Creator']['first_name'];?></td>
+            <td><?=$comment['Comment']['comment'];?></td>
+            <td><?=$comment['Comment']['timestamp'];?></td>
+        </tr>
+    <? endforeach; unset($comment); ?>
+    </table>

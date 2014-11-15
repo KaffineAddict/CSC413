@@ -22,7 +22,6 @@ echo $this->Html->link(
     'Logout',
     array('controller' => 'users', 'action' => 'logout')
 );
-echo "<br>" . print_r($dump);
 ?>
 
 <!-- print out the table headers -->

@@ -46,6 +46,15 @@ class AppController extends Controller {
 
     public function beforeFilter() {
         $this->set('userID', $this->Auth->user('User.id'));
+        if($this->Auth->user('Type.edit_permissions') == 1) {
+            $this->set('can_update', 1);
+        }
+        if($this->Auth->user('Type.open_tickets') == 1) {
+            $this->set('can_open', 1);
+        }
+        if($this->Auth->user('Type.close_tickets') == 1) {
+            $this->set('can_close', 1);
+        }
     }
 
     public function isAuthorized($user) {

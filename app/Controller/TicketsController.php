@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Blake
@@ -9,34 +10,29 @@
  * one or multiple tickets as well us updating them. This is the main ticket queue
  * controller.
  */
-
-class TicketsController extends AppController {
+class TicketsController extends AppController
+{
     // we will be using the HTML and Form support
     public $helpers = array('Html', 'Form');
     // This is needed for
     public $components = array('Session');
 
-    public function isAuthorized($user) {
+    public function isAuthorized($user)
+    {
+        if (in_array($this->action, array('view', 'comment', 'update'))) {
+            return true;
+        }
+
         if ($this->action == 'create') {
-            if($this->Auth->user('Type.open_tickets') == 1) {
-                $this->set('can_open', 1);
+            if ($this->Auth->user('Type.open_tickets') == 1) {
                 return true;
             } else {
                 return false;
             }
         }
-        if ($this->action == 'update') {
-            if(($this->request->params['pass'][0] == $this->Auth->user('User.id'))) {
-                return true;
-            } else if ($this->Auth->user('Type.') == 1) {
-                $this->set('can_update', 1);
-                return true;
-            }
-            return false;
-        }
+
         if ($this->action == 'close') {
-            if($this->Auth->user('Type.close_tickets') == 1) {
-                $this->set('can_close', 1);
+            if ($this->Auth->user('Type.close_tickets') == 1) {
                 return true;
             } else {
                 return false;
@@ -46,9 +42,10 @@ class TicketsController extends AppController {
     }
 
     // grab all tickets and display them using the index view
-    public function index()
+    // this will only show open tickets and allows us to show any status type later
+    public function index($type = 'open')
     {
-        $this->set('tickets', $this->Ticket->find('all'));
+        $this->set('tickets', $this->Ticket->find('all', array('conditions' => array("NOT" => array("Ticket.status" => 2)))));
     }
 
     // this view is for a single ticket
@@ -66,7 +63,10 @@ class TicketsController extends AppController {
         if (!$ticket) {
             throw new NotFoundException(__('Invalid Ticket'));
         }
+        $this->loadModel('Comment');
+        $comments = $this->Comment->findAllByTicketId($id);
         $this->set('ticket', $ticket);
+        $this->set('comments', $comments);
     }
 
     // This control will be used when creating a new ticket
@@ -112,6 +112,13 @@ class TicketsController extends AppController {
             throw new NotFoundException(__('Invalid Ticket'));
         }
 
+        // Check if this user is the creator/assignee
+        if(!(($this->Auth->user('User.id') == $ticket['Creator']['id']) || ($this->Auth->user('User.id') == $ticket['Assignee']['id'])))
+        {
+            $this->Session->setFlash(__('You are not a part of this ticket!'));
+            $this->redirect(array('action' => 'index'));
+        }
+
         $this->set('statuses', $this->Ticket->Status->find('list',
             array('order' => array('Status.id' => 'asc'))));
 
@@ -132,6 +139,44 @@ class TicketsController extends AppController {
 
         if (!$this->request->data) {
             $this->request->data = $ticket;
+        }
+    }
+
+    public function comment($id = null)
+    {
+        if (!$id) {
+            throw new NotFoundException(__('Invalid Ticket'));
+        }
+
+        $ticket = $this->Ticket->findByid($id);
+        if (!$ticket) {
+            throw new NotFoundException(__('Invalid Ticket'));
+        }
+
+        // Check if this user is the creator/assignee
+        if(!(($this->Auth->user('User.id') == $ticket['Creator']['id']) || ($this->Auth->user('User.id') == $ticket['Assignee']['id'])))
+        {
+            $this->Session->setFlash(__('You are not a part of this ticket!'));
+            $this->redirect(array('action' => 'index'));
+        }
+
+        $this->loadModel('Comment');
+
+        if ($this->request->is('post')) {
+            $data = array(
+                'Comment' => array(
+                    'comment' => $this->request->data['Comment']['comment'],
+                    'commentor_id' => $this->Auth->user('User.id'),
+                    'ticket_id' => $id
+                )
+            );
+            $this->Comment->create();
+            if ($this->Comment->save($data)) {
+                $this->Session->setFlash(__('Your comment has been added'));
+                return $this->redirect(array('action' => 'view', $id));
+            }
+            // something went wrong display error
+            $this->Session->setFlash(__('Unable to add the comment.'));
         }
     }
 } // end class TicketController

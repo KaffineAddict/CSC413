@@ -24,7 +24,6 @@ class UsersController extends AppController {
     public function isAuthorized($user) {
         if ($this->action == 'add') {
             if($this->Auth->user('Type.edit_permissions') == 1) {
-                $this->set('can_update', 1);
                 return true;
             } else {
                 return false;
@@ -34,7 +33,6 @@ class UsersController extends AppController {
             if(($this->request->params['pass'][0] == $this->Auth->user('User.id'))) {
                 return true;
             } else if ($this->Auth->user('Type.edit_permissions') == 1) {
-                $this->set('can_update', 1);
                 return true;
             }
             return false;
@@ -69,7 +67,6 @@ class UsersController extends AppController {
     }
 
     public function login() {
-       // print_r($this); die;
         if ($this->request->is('post') || $this->request->is('get')) {
             if ($this->Auth->login()) {
                 $this->Session->setFlash('Logged In');
