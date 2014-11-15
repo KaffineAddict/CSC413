@@ -16,6 +16,35 @@ class TicketsController extends AppController {
     // This is needed for
     public $components = array('Session');
 
+    public function isAuthorized($user) {
+        if ($this->action == 'create') {
+            if($this->Auth->user('Type.open_tickets') == 1) {
+                $this->set('can_open', 1);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if ($this->action == 'update') {
+            if(($this->request->params['pass'][0] == $this->Auth->user('User.id'))) {
+                return true;
+            } else if ($this->Auth->user('Type.') == 1) {
+                $this->set('can_update', 1);
+                return true;
+            }
+            return false;
+        }
+        if ($this->action == 'close') {
+            if($this->Auth->user('Type.close_tickets') == 1) {
+                $this->set('can_close', 1);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
+
     // grab all tickets and display them using the index view
     public function index()
     {

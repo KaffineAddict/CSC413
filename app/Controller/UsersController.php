@@ -18,11 +18,10 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('login');
+        $this->Auth->allow('login', 'logout');
     }
 
     public function isAuthorized($user) {
-        $this->set('dump', $this->Auth->user());
         if ($this->action == 'add') {
             if($this->Auth->user('Type.edit_permissions') == 1) {
                 $this->set('can_update', 1);
