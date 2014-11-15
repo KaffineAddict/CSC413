@@ -2,7 +2,9 @@
 <!--
 This is a form that allows us to add a new user
 -->
-<h1>Add a User</h1>
+<?
+$this->assign('title', 'Add a User');
+?>
 
 <!-- a link back to all of our users -->
 <?php echo $this->Html->link(
