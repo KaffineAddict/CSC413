@@ -6,27 +6,9 @@ information to an html table.
 -->
 
 <h1>Ticket Queue</h1>
-
-<!-- print out the top navigation using cake php array links -->
-<?php echo $this->Html->link(
-    'Create Ticket',
-    array('controller' => 'tickets', 'action' => 'create')
-);
-echo " ";
-echo $this->Html->link(
-    'View/Add Users',
-    array('controller' => 'users', 'action' => 'index')
-);
-echo " ";
-echo $this->Html->link(
-    'Logout',
-    array('controller' => 'users', 'action' => 'logout')
-);
-?>
-
 <!-- print out the table headers -->
-<table>
-    <tr>
+<table class="table table-hover table-striped">
+    <thead><tr>
         <th>ID</th>
         <th>Title</th>
         <th>Creator</th>
@@ -34,8 +16,9 @@ echo $this->Html->link(
         <th>Opened</th>
         <th>Status</th>
         <th>Update</th>
-    </tr>
+    </tr></thead>
     <!-- begin for loop dumping out the ticket information -->
+    <tbody>
     <?php foreach($tickets as $ticket): ?>
     <tr>
         <td><?php echo $ticket['Ticket']['id']; ?></td>
@@ -47,6 +30,6 @@ echo $this->Html->link(
         <td><?php echo $ticket['Status']['name']; ?></td>
         <td><?php echo $this->Html->link('Update Ticket', array('action' => 'update', $ticket['Ticket']['id'])); ?></td>
     </tr>
-    <!-- end for loop -->
     <?php endforeach; unset($ticket); ?>
+    </tbody>
 </table>

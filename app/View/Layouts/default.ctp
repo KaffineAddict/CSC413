@@ -39,14 +39,16 @@
     </div>
 </nav>
 
-	<div id="container" style="width:850">
+	<div id="container" class="container content">
 		<div id="header">
-            <br>
+            <? if($this->Session->check('Message.flash')) {
+                echo "<div class=\"alert alert-info\" role=\"alert\">";
+                echo $this->Session->flash();
+                echo "</div>";
+            }
+            ?>
 		</div>
 		<div id="content">
-
-            <?php echo $this->Session->flash(); ?>
-
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><?php echo $this->fetch('title'); ?></h3>

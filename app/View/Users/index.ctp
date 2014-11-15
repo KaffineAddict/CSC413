@@ -9,16 +9,19 @@ $this->assign('title', 'User List');
 ?>
 
 <!-- print out the table headers -->
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Type</th>
-        <th>Update</th>
-    </tr>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Update</th>
+        </tr>
+    </thead>
     <!-- loop through all users and dump the relevant information to the table -->
+    <tbody>
     <?php foreach($users as $user): ?>
     <tr>
         <td><?php echo $user['User']['id']; ?></td>
@@ -28,6 +31,6 @@ $this->assign('title', 'User List');
         <td><?php echo $user['Type']['name']; ?></td>
         <td><?php echo $this->Html->link('Update User', array('action' => 'update', $user['User']['id'])); ?></td>
     </tr>
-        <!-- end users loop -->
-    <?php endforeach; unset($user); ?>
+        <?php endforeach; unset($user); ?>
+    </tbody>
 </table>
