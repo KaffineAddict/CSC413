@@ -4,24 +4,8 @@ This file is the main view for the users page.
 It loops through all users defined in app/Models/User.php and writes the relevant
 information to an html table.
 -->
-
-<h1>User List</h1>
-
-<!-- print out the top navigation using cake php array links -->
-<?php echo $this->Html->link(
-    'Add User',
-    array('controller' => 'users', 'action' => 'add')
-);
-echo " ";
-echo $this->Html->link(
-    'Show All Tickets',
-    array('controller' => 'tickets', 'action' => 'index')
-);
-echo " ";
-echo $this->Html->link(
-    'Logout',
-    array('controller' => 'users', 'action' => 'logout')
-);
+<?
+$this->assign('title', 'User List');
 ?>
 
 <!-- print out the table headers -->

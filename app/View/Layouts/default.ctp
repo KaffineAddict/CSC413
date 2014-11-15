@@ -39,15 +39,22 @@
     </div>
 </nav>
 
-	<div id="container">
+	<div id="container" style="width:850">
 		<div id="header">
             <br>
 		</div>
 		<div id="content">
 
-			<?php echo $this->Session->flash(); ?>
+            <?php echo $this->Session->flash(); ?>
 
-			<?php echo $this->fetch('content'); ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $this->fetch('title'); ?></h3>
+                </div>
+                <div class="panel-body">
+                    <?php echo $this->fetch('content'); ?>
+                </div>
+            </div>
 		</div>
 		<div id="footer">
 
