@@ -1,7 +1,12 @@
 .dropdown:hover .dropdown-menu {
-     display: block;
- }
+    display: block;
+}
 
+@media screen and (max-width: 1024px) {
+    .dropdown:hover .dropdown-menu {
+
+    }
+}
 .container .content {
     width: 850px;
     margins: auto;
