@@ -1,17 +1,63 @@
-<li class="<?php echo ((!empty($this->params['controller']) && ($this->params['controller'] == 'users')) && ((!empty($this->params['action'])) && ($this->params['action']!= 'login'))) ? 'active' : 'inactive' ?>">
-    <? echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'index')); ?>
-</li>
+<?
+$param_controller = (isset($this->params['controller'])) ? $this->params['controller'] : "";
+$param_action = (isset($this->params['action'])) ? $this->params['action'] : "";
+?>
 
-<li class="dropdown <?php echo (!empty($this->params['controller']) && ($this->params['controller'] == 'tickets')) ? 'active' : 'inactive' ?>">
-    <a href="tickets/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Tickets <span class="caret"></span></a>
-    <? //echo $this->Html->link('Tickets', array('controller' => 'tickets', 'action' => 'index')); ?>
+<li class="dropdown <?php echo (($param_controller == 'users') && ($param_action != 'login')) ? 'active' : 'inactive' ?>">
+    <? echo $this->Html->link(
+        'Users',
+        array(
+            'controller' => 'users',
+            'action' => 'index'),
+        array(
+            'class' => 'dropdown-toggle',
+            'role' => 'button',
+            'data-toggle' => 'dropdown',
+            'aria-expanded' => 'true')
+    ); ?>
     <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Open</a></li>
-        <li><a href="##">Deleted</a></li>
+        <li><? echo $this->Html->link(
+                'Profile',
+                array(
+                    'controller' => 'users',
+                    'action' => 'update',
+                    $userID)
+            );
+            ?></li>
     </ul>
 </li>
 
-<li  class="<?php echo (!empty($this->params['action'])) && ($this->params['action']== 'login') ? 'active' : 'inactive' ?>">
+<li class="dropdown <?php echo ($param_controller == 'tickets') ? 'active' : 'inactive' ?>">
+    <? echo $this->Html->link(
+        'Tickets',
+        array(
+            'controller' => 'tickets',
+            'action' => 'index'),
+        array(
+            'class' => 'dropdown-toggle',
+            'role' => 'button',
+            'data-toggle' => 'dropdown',
+            'aria-expanded' => 'true')
+    ); ?>
+    <ul class="dropdown-menu" role="menu">
+        <li><? echo $this->Html->link(
+                'Open',
+                array(
+                    'controller' => 'tickets',
+                    'action' => 'index',
+                    'open')
+            ); ?></li>
+        <li><? echo $this->Html->link(
+                'Closed',
+                array(
+                    'controller' => 'tickets',
+                    'action' => 'index',
+                    'closed')
+            ); ?></li>
+    </ul>
+</li>
+
+<li  class="<?php echo ($param_action == 'login') ? 'active' : 'inactive' ?>">
     <?
     echo $this->Html->link((isset($userID)) ? "Logout" : "Login", array('controller' => 'users', 'action' => 'logout'));
     ?>
