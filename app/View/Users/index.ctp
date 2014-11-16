@@ -7,7 +7,6 @@ information to an html table.
 <?
 $this->assign('title', 'User List');
 ?>
-
 <!-- print out the table headers -->
 <table class="table table-hover table-striped">
     <thead>
@@ -31,7 +30,13 @@ $this->assign('title', 'User List');
         <td><?php echo $user['Type']['name']; ?></td>
         <td>
         <? if(($user['User']['id'] == $userID) || isset($can_update)) {
-            echo $this->Html->link('Update User', array('action' => 'update', $user['User']['id']));
+            echo $this->Html->link(
+                'Update User',
+                array(
+                    'controller' => 'users',
+                    'action' => 'update', $user['User']['id']),
+                array(
+                    'class' => 'btn btn-default'));
         }
         ?>
         </td>

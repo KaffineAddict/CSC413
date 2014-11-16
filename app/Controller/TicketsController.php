@@ -45,7 +45,11 @@ class TicketsController extends AppController
     // this will only show open tickets and allows us to show any status type later
     public function index($type = 'open')
     {
-        $this->set('tickets', $this->Ticket->find('all', array('conditions' => array("NOT" => array("Ticket.status" => 2)))));
+        if($type == 'closed') {
+            $this->set('tickets', $this->Ticket->find('all', array('conditions' => array("Ticket.status" => 2))));
+        } else {
+            $this->set('tickets', $this->Ticket->find('all', array('conditions' => array("NOT" => array("Ticket.status" => 2)))));
+        }
     }
 
     // this view is for a single ticket

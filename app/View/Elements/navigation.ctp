@@ -24,6 +24,13 @@ $param_action = (isset($this->params['action'])) ? $this->params['action'] : "";
                     $userID)
             );
             ?></li>
+        <li><? echo $this->Html->link(
+                'All Users',
+                array(
+                    'controller' => 'users',
+                    'action' => 'index')
+            );
+            ?></li>
     </ul>
 </li>
 
@@ -54,6 +61,16 @@ $param_action = (isset($this->params['action'])) ? $this->params['action'] : "";
                     'action' => 'index',
                     'closed')
             ); ?></li>
+        <? if(isset($can_open)) {
+            echo "<li>";
+            echo $this->Html->link(
+                'Create Ticket',
+                array(
+                    'controller' => 'tickets',
+                    'action' => 'create')
+            );
+            echo "</li>";
+        }?>
     </ul>
 </li>
 

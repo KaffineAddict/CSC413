@@ -93,6 +93,8 @@ class UsersController extends AppController {
             throw new NotFoundException(__('Invalid User ID'));
         }
 
+        $this->set('editing_id', $id);
+
         $this->set('userTypes', $this->User->Type->find('list',
             array('order' => array('Type.id' => 'asc'))));
 

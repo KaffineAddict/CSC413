@@ -29,7 +29,15 @@ $this->assign('title', 'Ticket Queue');
         <td><?php echo $ticket['Assignee']['full_name']; ?></td>
         <td><?php echo $ticket['Ticket']['created']; ?></td>
         <td><?php echo $ticket['Status']['name']; ?></td>
-        <td><?php echo $this->Html->link('Update Ticket', array('action' => 'update', $ticket['Ticket']['id'])); ?></td>
+        <td><?php
+            echo $this->Html->link(
+                'Update',
+                array(
+                    'controller' => 'tickets',
+                    'action' => 'update', $ticket['Ticket']['id']),
+                array(
+                    'class' => 'btn btn-default'));
+        ?></td>
     </tr>
     <?php endforeach; unset($ticket); ?>
     </tbody>

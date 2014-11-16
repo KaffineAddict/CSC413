@@ -7,15 +7,9 @@ show the comments on the ticket as well.
 <?
 $this->assign('title', 'Single Ticket View');
 ?>
-<!-- a link to show all of the tickets -->
-<?php echo $this->Html->link(
-    'Show All Tickets',
-    array('controller' => 'tickets', 'action' => 'index')
-); ?>
-
 <!-- print the table headers -->
-<table>
-    <tr>
+<table class="table table-hover table-striped">
+    <thead><tr>
         <th>ID</th>
         <th>Title</th>
         <th>Creator</th>
@@ -23,9 +17,9 @@ $this->assign('title', 'Single Ticket View');
         <th>Opened</th>
         <th>Status</th>
         <th>Update</th>
-    </tr>
+    </tr></thead>
     <!-- fill in the table -->
-    <tr>
+    <tbody><tr>
         <td><?php echo $ticket['Ticket']['id']; ?></td>
         <td><?php echo $this->Html->link($ticket['Ticket']['description'], array('controller' => 'tickets',
                 'action' => 'view', $ticket['Ticket']['id'])); ?></td>
@@ -34,22 +28,37 @@ $this->assign('title', 'Single Ticket View');
         <td><?php echo $ticket['Ticket']['created']; ?></td>
         <td><?php echo $ticket['Status']['name']; ?></td>
         <td><?php echo $this->Html->link('Update Ticket', array('action' => 'update', $ticket['Ticket']['id'])); ?></td>
-    </tr>
+    </tr></tbody>
 </table>
     <br>
     <hr>
     <br>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Comment</th>
-            <th>Time</th>
-        </tr>
-    <? foreach($comments as $comment): ?>
-        <tr>
-            <td><?=$comment['Creator']['first_name'];?></td>
-            <td><?=$comment['Comment']['comment'];?></td>
-            <td><?=$comment['Comment']['timestamp'];?></td>
-        </tr>
-    <? endforeach; unset($comment); ?>
+
+<? echo $this->Html->link(
+    'Add Comment',
+    array(
+        'controller' => 'tickets',
+        'action' => 'comment', $ticket['Ticket']['id']),
+    array(
+        'class' => 'btn btn-default'));
+
+    if(!empty($comments)) { ?>
+    <table class="table table-hover table-striped">
+    <thead><tr>
+        <th>Name</th>
+        <th>Comment</th>
+        <th>Time</th>
+    </tr></thead>
+    <tbody>
+    <?
+        foreach($comments as $comment) {
+            echo "<tr><td>" . $comment['Creator']['first_name'] . "</td>";
+            echo "<td>" . $comment['Comment']['comment'] . "</td>";
+            echo "<td>" . $comment['Comment']['timestamp'] . "</td></tr>";
+        }
+        unset($comment);
+    echo "</tbody>";
+    } else {
+        echo "There are no comments";
+    } ?>
     </table>

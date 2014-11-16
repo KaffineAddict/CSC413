@@ -6,19 +6,12 @@ This will allow us to reassign or put a better description on a ticket.
 <?
 $this->assign('title', 'Update Ticket');
 ?>
-
-<!-- a link back to the main ticket view -->
-<?php echo $this->Html->link(
-    'Cancel',
-    array('controller' => 'tickets', 'action' => 'index')
-); ?>
-
 <!-- dump the current ticket information to the form -->
 <?php
-echo $this->Form->create('Ticket');
-echo $this->Form->input('description');
-echo $this->Form->input('created_user_id');
-echo $this->Form->input('assigned_user_id');
-echo $this->Form->input('status');
-echo $this->Form->end('Update Status');
+echo $this->Form->create('Ticket', array('role' => 'form'));
+echo $this->Form->input('description', array('div' => 'form-group', 'class' => 'form-control', 'label' => array('text' => 'Description')));
+echo $this->Form->input('created_user_id', array('div' => 'form-group', 'class' => 'form-control', 'label' => array('text' => 'Creator')));
+echo $this->Form->input('assigned_user_id', array('div' => 'form-group', 'class' => 'form-control', 'label' => array('text' => 'Assigned to')));
+echo $this->Form->input('status', array('div' => 'form-group', 'class' => 'form-control', 'label' => array('text' => 'Current Status')));
+echo $this->Form->end(array('label' => 'Update Status', 'class' => "btn btn-default"));
 ?>
