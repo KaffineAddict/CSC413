@@ -5,8 +5,10 @@
 	<title>
 		<?php echo $this->fetch('title'); ?>
 	</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php
 	echo $this->Html->meta('icon');
+    echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js');
     echo $this->Html->script('bootstrap');
 	echo $this->Html->css('bootstrap');
     echo $this->Html->css('custom');
@@ -21,17 +23,16 @@
     <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-8">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/tickets">Ticketer</a>
+            <a class="navbar-brand" href="/tickets"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> Ticketer</a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+        <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <? echo $this->element('navigation'); ?>
             </ul>
@@ -51,7 +52,7 @@
 		<div id="content">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><?php echo $this->fetch('title'); ?></h3>
+                    <h2 class="panel-title"><?php echo $this->fetch('title'); ?></h2>
                 </div>
                 <div class="panel-body">
                     <?php echo $this->fetch('content'); ?>

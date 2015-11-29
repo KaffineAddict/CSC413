@@ -4,8 +4,9 @@ This file is the main view for the Tickets page.
 It loops through all tickets defined in app/Models/Ticket.php and writes the relevant
 information to an html table.
 -->
-
-<h1>Ticket Queue</h1>
+<?
+$this->assign('title', 'Ticket Queue');
+?>
 <!-- print out the table headers -->
 <table class="table table-hover table-striped">
     <thead><tr>
@@ -28,7 +29,15 @@ information to an html table.
         <td><?php echo $ticket['Assignee']['full_name']; ?></td>
         <td><?php echo $ticket['Ticket']['created']; ?></td>
         <td><?php echo $ticket['Status']['name']; ?></td>
-        <td><?php echo $this->Html->link('Update Ticket', array('action' => 'update', $ticket['Ticket']['id'])); ?></td>
+        <td><?php
+            echo $this->Html->link(
+                'Update',
+                array(
+                    'controller' => 'tickets',
+                    'action' => 'update', $ticket['Ticket']['id']),
+                array(
+                    'class' => 'btn btn-default'));
+        ?></td>
     </tr>
     <?php endforeach; unset($ticket); ?>
     </tbody>

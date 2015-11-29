@@ -1,8 +1,17 @@
-.dropdown:hover .dropdown-menu {
-     display: block;
- }
-
 .container .content {
     width: 850px;
     margins: auto;
+}
+
+/* #Mobile (Landscape)
+================================================== */
+/* Note: Design for a width of 600px */
+@media all and (max-width: 600px) {
+    td.col_4{
+        display:none;
+        width:0;
+        height:0;
+        opacity:0;
+        visibility: collapse;
+    }
 }

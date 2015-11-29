@@ -13,8 +13,8 @@ App::uses('BaseAuthenticate', 'Controller/Component/Auth');
 class GitHubAuthenticate extends BaseAuthenticate {
 
     var $settings = array(
-        "clientID" => "",
-        "clientSecret" => "",
+        "clientID" => "d2e54a61a2963cdd4708",
+        "clientSecret" => "0c9266a0227ef7df684777c7f309a48300a11c94",
         "redirect_url" => "http://csc413.computershopware.com/users/callback",
         "appName" => "Ticketer"
     );
@@ -68,11 +68,11 @@ class GitHubAuthenticate extends BaseAuthenticate {
     private function checkUser($gitUser, $access){
         App::uses('User', 'Model');
         $User = new User();
-        $user = $User->find("first",array("conditions" => array("email" => $gitUser->email)));
+        $user = $User->find("first",array("conditions" => array("username" => $gitUser->login)));
         if (!$user) {
             $user = array(
                 "User" => array(
-                    "email" => $gitUser->email,
+                    "username" => $gitUser->login,
                     "token" => $access
                 )
             );
